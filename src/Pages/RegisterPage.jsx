@@ -1,29 +1,67 @@
 
-import { use } from "react";
+import { use, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import { useNavigate } from "react-router";
 
 const RegisterPage = () => {
 
-  const {createUser, setUser} = use(AuthContext);
+  const {createUser, setUser, googleSignIn, updateUser} = use(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
+    setError(""); 
+    setSuccess(false); 
+    setLoading(true);
     const form = e.target;
     const name = form.name.value;
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
 
+     const uppercaseReg = /[A-Z]/;
+    const lowercaseReg = /[a-z]/;
+
+    if (!uppercaseReg.test(password)) {
+      setError("Password must contain at least one uppercase letter");
+      setLoading(false);
+      return;
+    }
+
+    if (!lowercaseReg.test(password)) {
+      setError("Password must contain at least one lowercase letter");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
+    
+
     
     createUser(email, password)
     .then(result=>{
       const user = result.user;
-      console.log(user);
-      setUser(user)
+      updateUser({ displayName: name, photoURL: photo })
       
-    })
+      .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            setSuccess(true);
+            e.target.reset();
+            navigate(location.state?.from?.pathname || "/");
+          })
+          .catch(err => setError("Profile update failed: " + err.message));
+      })
+      
     .catch(error=>{
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -32,8 +70,15 @@ const RegisterPage = () => {
   };
 
   const handleGoogleSignup = () => {
-    console.log("Google signup triggered");
-    // Add your Google signup logic here
+     setError(""); setLoading(true);
+    googleSignIn()
+      .then(result => {
+        setUser(result.user);
+        setSuccess(true);
+        navigate(location.state?.from?.pathname || "/");
+      })
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -78,12 +123,13 @@ const RegisterPage = () => {
               required
               className="px-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
             />
-
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+              {success && <p className="text-green-600 text-sm">Registration successful!</p>}
             <button
-              type="submit"
+              type="submit" disabled={loading}
               className="mt-4 bg-gradient-to-r from-[#f6d365] to-[#fda085] text-black font-bold py-3 rounded-xl hover:scale-105 transition-transform duration-300 shadow-md"
             >
-              Register
+             {loading ? "Creating Account..." : "Register"}
             </button>
           </form>
 

@@ -2,10 +2,15 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 const LoginPage = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn, setUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -25,8 +30,13 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google login triggered");
-    toast("Google login coming soon 👀");
+    googleSignIn()
+    .then(result => {
+        setUser(result.user);
+        setSuccess(true);
+        navigate(location.state?.from?.pathname || "/");
+      })
+      .catch(err => setError(err.message))
   };
 
   return (
@@ -71,6 +81,10 @@ const LoginPage = () => {
           >
             <FcGoogle size={24} /> Login with Google
           </button>
+          {success && (
+          <p className="text-green-600 text-center mt-2">Logged in successfully</p>
+        )}
+        {error && <p className="text-red-600 text-center mt-2">{error}</p>}
 
           <p className="mt-6 text-center text-white/90">
             Don’t have an account?{" "}

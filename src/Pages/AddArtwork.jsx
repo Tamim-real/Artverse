@@ -1,13 +1,17 @@
+import { use } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 const AddArtwork = () => {
 
+const {user} = use(AuthContext)
+console.log(user);
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      image : e.target.name.value,
+      image : e.target.image.value,
       title : e.target.title.value,
       category: e.target.category.value,
       medium: e.target.medium.value,
@@ -15,10 +19,27 @@ const AddArtwork = () => {
       dimensions: e.target.dimensions.value,
       price : e.target.price.value,
       visibility : e.target.visibility.value,
-      created_at: new Date()
+      created_at: new Date(),
+      created_by: user.displayName,
+      userPhoto: user.photoURL,
+      userEmail: user.email
+      
 
     }
-    console.log(formData);
+    
+fetch("http://localhost:3000/all-arts", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  
     
   };
 
@@ -154,7 +175,7 @@ const AddArtwork = () => {
             <input
               type="text"
               readOnly
-              value="Anonymous"
+              value={user.displayName}
               className="w-full p-3 rounded-xl bg-white/10 border border-white/10 text-gray-400"
             />
           </div>
@@ -162,8 +183,9 @@ const AddArtwork = () => {
             <label className="block mb-1 font-semibold">User Email</label>
             <input
               type="email"
+              name="email"
               readOnly
-              value="No Email"
+              value={user.email}
               className="w-full p-3 rounded-xl bg-white/10 border border-white/10 text-gray-400"
             />
           </div>

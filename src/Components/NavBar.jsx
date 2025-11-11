@@ -36,9 +36,9 @@ const Navbar = () => {
           <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">
             Add Artwork
           </NavLink>
-          <button className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to='myart' className="hover:text-[#38bdf8] transition-colors duration-300">
             My Gallery
-          </button>
+          </NavLink>
           <button className="hover:text-[#38bdf8] transition-colors duration-300">
             My Favorites
           </button>
@@ -104,9 +104,9 @@ const Navbar = () => {
           <NavLink to="add-art" className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             Add Artwork
           </NavLink>
-          <button className="hover:text-[#38bdf8]" onClick={toggleMenu}>
+          <NavLink to='myart' className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             My Gallery
-          </button>
+          </NavLink>
           <button className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             My Favorites
           </button>

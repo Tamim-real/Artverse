@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, Eye } from "lucide-react";
+import { Link } from "react-router";
 
 // SmartArtCard.jsx
 // Usage: <SmartArtCard art={art} onView={(art) => console.log(art)} />
@@ -77,7 +78,7 @@ export default function ArtCard({ art, onView}) {
           </div>
 
           <div className="mt-4 flex items-center gap-3">
-            <button
+            <Link to={`/all-arts/${art._id}`}
               onClick={() => {
                 setShowDetails(true);
                 if (onView) onView(art);
@@ -85,7 +86,7 @@ export default function ArtCard({ art, onView}) {
               className="inline-flex items-center gap-2 px-3 py-2 rounded-lg shadow-sm text-sm font-medium transition-transform transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
               <Eye className="h-4 w-4" />
               <span>View Details</span>
-            </button>
+            </Link>
 
             <button
               onClick={toggleLike}
