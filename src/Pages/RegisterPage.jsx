@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+
+import { use } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const RegisterPage = () => {
-  const [name, setName] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const {createUser, setUser} = use(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Registering with:", name, photo, email, password);
-    // Add your registration logic here
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    
+    createUser(email, password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user);
+      setUser(user)
+      
+    })
+    .catch(error=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    })
+    
   };
 
   const handleGoogleSignup = () => {
@@ -31,32 +48,32 @@ const RegisterPage = () => {
           <form onSubmit={handleRegister} className="flex flex-col gap-4">
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              
+              name="name"
               placeholder="Full Name"
               required
               className="px-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
             />
             <input
               type="url"
-              value={photo}
-              onChange={(e) => setPhoto(e.target.value)}
+              
+              name="photo"
               placeholder="Photo URL"
               required
               className="px-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
             />
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+             
+              name="email"
               placeholder="Email"
               required
               className="px-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
             />
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              
+              name="password"
               placeholder="Password"
               required
               className="px-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"

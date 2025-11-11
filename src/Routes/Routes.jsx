@@ -5,6 +5,7 @@ import ErrorPage from "../Pages/ErroPage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import AddArtwork from "../Pages/AddArtwork";
+import ExploreArtworks from "../Pages/ExploreArtworks";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       {path: "login", element:<LoginPage></LoginPage>},
       {path:"register", element: <RegisterPage></RegisterPage>},
-      {path: "add-art", element: <AddArtwork></AddArtwork>}
+      {path: "add-art", element: <AddArtwork></AddArtwork>},
+      {path: "all-arts", element: <ExploreArtworks></ExploreArtworks>,
+        loader: ()=> fetch('http://localhost:3000/all-arts')
+      }
     ],
   },
 ]);

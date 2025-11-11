@@ -2,17 +2,18 @@ import React, { useState, useContext } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
-
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const { user, logOut } = useContext(AuthContext); // Get user info and logout function
+  const { user, logOut } = useContext(AuthContext);
 
   const handleLogout = () => {
     logOut()
-      .then(() => console.log("Logged out"))
+      .then(() => 
+      toast.success('Log out successful'))
       .catch((error) => console.error(error));
   };
 
@@ -29,10 +30,12 @@ const Navbar = () => {
           <NavLink to="/" className="hover:text-[#38bdf8] transition-colors duration-300">
             Home
           </NavLink>
-          <button className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to="all-arts" className="hover:text-[#38bdf8] transition-colors duration-300">
             Explore Artworks
-          </button>
-          <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">Add Artwork</NavLink>
+          </NavLink>
+          <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">
+            Add Artwork
+          </NavLink>
           <button className="hover:text-[#38bdf8] transition-colors duration-300">
             My Gallery
           </button>
@@ -45,13 +48,18 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-4">
           {user ? (
             <>
-              {/* Profile Photo */}
-              <img
-                src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
-                alt="User"
-                className="w-10 h-10 rounded-full border-2 border-[#38bdf8] object-cover"
-                title={user.displayName || "User"}
-              />
+              {/* Profile Photo + Hover Tooltip */}
+              <div className="relative group">
+                <img
+                  src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
+                  alt="User"
+                  className="w-10 h-10 rounded-full border-2 border-[#38bdf8] object-cover cursor-pointer"
+                />
+                <span className="absolute top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-slate-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 shadow-lg whitespace-nowrap">
+                  {user.displayName || "User"}
+                </span>
+              </div>
+
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
@@ -90,12 +98,12 @@ const Navbar = () => {
           <NavLink to="/" className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             Home
           </NavLink>
-          <button className="hover:text-[#38bdf8]" onClick={toggleMenu}>
+          <NavLink to="all-arts" className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             Explore Artworks
-          </button>
-          <button className="hover:text-[#38bdf8]" onClick={toggleMenu}>
+          </NavLink>
+          <NavLink to="add-art" className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             Add Artwork
-          </button>
+          </NavLink>
           <button className="hover:text-[#38bdf8]" onClick={toggleMenu}>
             My Gallery
           </button>
@@ -107,12 +115,15 @@ const Navbar = () => {
           <div className="flex flex-col gap-2 mt-4">
             {user ? (
               <>
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-2">
                   <img
                     src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
                     alt="User"
                     className="w-12 h-12 rounded-full border-2 border-[#38bdf8] object-cover"
                   />
+                  <span className="text-sm text-gray-300 font-medium">
+                    {user.displayName || "User"}
+                  </span>
                 </div>
                 <button
                   className="border border-red-400 py-2 rounded-xl text-red-400 hover:bg-red-400 hover:text-black transition-all duration-300"
