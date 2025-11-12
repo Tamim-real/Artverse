@@ -1,25 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Heart, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Link } from "react-router";
 
-// SmartArtCard.jsx
-// Usage: <SmartArtCard art={art} onView={(art) => console.log(art)} />
-// art: { image, title, artist, category, likes }
-
-export default function ArtCard({ art, onView}) {
-  const [likes, setLikes] = useState(art?.likes || 0);
-  const [liked, setLiked] = useState(false);
+export default function ArtCard({ art, onView }) {
   const [showDetails, setShowDetails] = useState(false);
-
-  function toggleLike(e) {
-    e.stopPropagation();
-    setLiked((prev) => {
-      const next = !prev;
-      setLikes((l) => (next ? l + 1 : Math.max(0, l - 1)));
-      return next;
-    });
-  }
 
   return (
     <>
@@ -36,24 +21,10 @@ export default function ArtCard({ art, onView}) {
             loading="lazy"
           />
 
-          {/* overlay top-right: category */}
+          {/* overlay top-left: category */}
           <div className="absolute top-3 left-3 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-slate-700">
             {art.category}
           </div>
-
-          {/* like button */}
-          <button
-            onClick={toggleLike}
-            aria-pressed={liked}
-            className="absolute top-3 right-3 p-2 rounded-full backdrop-blur-sm bg-white/80 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500"
-            title={liked ? "Unlike" : "Like"}>
-            <motion.span
-              initial={{ scale: 1 }}
-              animate={{ scale: liked ? 1.15 : 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 12 }}>
-              <Heart className={`h-5 w-5 ${liked ? "text-red-600" : "text-slate-600"}`} />
-            </motion.span>
-          </button>
 
           {/* subtle gradient bottom */}
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -72,13 +43,14 @@ export default function ArtCard({ art, onView}) {
             </div>
 
             <div className="flex flex-col items-end text-right text-xs text-slate-500">
-              <span className="font-medium text-sm text-slate-800">{likes}</span>
-              <span className="mt-0.5">likes</span>
+              <span className="font-medium text-sm text-slate-800">{art?.likes?.length || 0}</span>
+              <span className="mt-0.5">{art?.likes?.length === 1 ? "like" : "likes"}</span>
             </div>
           </div>
 
           <div className="mt-4 flex items-center gap-3">
-            <Link to={`/all-arts/${art._id}`}
+            <Link
+              to={`/all-arts/${art._id}`}
               onClick={() => {
                 setShowDetails(true);
                 if (onView) onView(art);
@@ -87,23 +59,15 @@ export default function ArtCard({ art, onView}) {
               <Eye className="h-4 w-4" />
               <span>View Details</span>
             </Link>
-
-            <button
-              onClick={toggleLike}
-              className="ml-auto flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
-              <Heart className={`h-4 w-4 ${liked ? "text-red-600" : "text-slate-600"}`} />
-              <span>{liked ? "Liked" : "Like"}</span>
-            </button>
           </div>
 
           <div className="mt-3 text-xs text-slate-500 line-clamp-3">
-            {/* optional short description if provided */}
             {art.description || "No description provided. Add a short blurb to make the card more engaging."}
           </div>
         </div>
       </article>
 
-      {/* Modal / Details panel (simple accessible modal) */}
+      {/* Modal / Details panel */}
       {showDetails && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -136,11 +100,11 @@ export default function ArtCard({ art, onView}) {
                 <p className="mt-2 text-sm text-slate-500">Category: {art.category}</p>
 
                 <div className="mt-4 text-sm text-slate-700">
-                  <strong>Likes:</strong> {likes}
+                  <strong>Likes:</strong> {art?.likes?.length || 0}
                 </div>
 
                 <div className="mt-4 text-sm text-slate-600">
-                  {art.longDescription || "This artwork doesn't have an extended description yet. Provide one via the art object as longDescription."}
+                  {art.longDescription || "This artwork doesn't have an extended description yet."}
                 </div>
 
                 <div className="mt-6 flex gap-3">
@@ -166,6 +130,3 @@ export default function ArtCard({ art, onView}) {
     </>
   );
 }
-
-
-

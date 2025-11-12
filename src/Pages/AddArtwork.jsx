@@ -205,4 +205,3 @@ const AddArtwork = () => {
 };
 
 export default AddArtwork;
-d

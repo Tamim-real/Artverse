@@ -11,6 +11,8 @@ const ArtworkDetails = () => {
   const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalArtworks, setTotalArtworks] = useState(null);
+ 
+  
 
   useEffect(() => {
     fetch(`http://localhost:3000/all-arts/${id}`)
@@ -33,17 +35,29 @@ const ArtworkDetails = () => {
     }
   }, [user?.email]);
 
-  const handleLike = async () => {
-    try {
-      const res = await fetch(`http://localhost:3000/all-arts/like/${id}`, {
-        method: "PATCH",
-      });
-      const data = await res.json();
-      setArtwork({ ...artwork, likes: data.likes });
-    } catch (err) {
-      console.error(err);
+const handleLike = async (id) => {
+  if (!user) return alert("Please login first!");
+
+  try {
+    const res = await fetch(`http://localhost:3000/all-arts/like/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email }),
+    });
+
+    if (!res.ok) {
+      const text = await res.text(); // get raw response
+      console.error("Server error:", text);
+      return;
     }
-  };
+
+    const updatedArt = await res.json();
+    setArtwork(updatedArt);
+  } catch (err) {
+    console.error("Frontend fetch error:", err);
+  }
+};
+
 
   const handleFavorite = async () => {
     try {
@@ -109,13 +123,13 @@ const ArtworkDetails = () => {
             </div>
           </div>
 
-          {/* Buttons */}
+         
           <div className="flex gap-4 pt-6">
             <button
-              onClick={handleLike}
+              onClick={()=> handleLike(artwork._id)}
               className="flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-5 py-2 rounded-xl transition-all"
             >
-              <Heart className="w-5 h-5" /> {artwork.likes || 0} Likes
+              <Heart className="w-5 h-5" /> {artwork?.likes?.length || 0} Likes
             </button>
             <button
               onClick={handleFavorite}
@@ -127,7 +141,7 @@ const ArtworkDetails = () => {
         </div>
       </div>
 
-      {/* Go Back Button */}
+      
       <motion.button
         onClick={() => navigate(-1)}
         className="mt-10 flex items-center gap-2 bg-gradient-to-r from-[#38bdf8] to-[#3b82f6] text-white px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"

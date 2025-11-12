@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Trash2, Pencil } from "lucide-react";
 import { AuthContext } from "../provider/AuthProvider";
 
-const MyArtwork = ({ onDelete, onUpdate }) => {
+const MyArtwork = () => {
   const { user } = use(AuthContext);
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,20 +59,20 @@ const MyArtwork = ({ onDelete, onUpdate }) => {
   }
 
   try {
-    // ✅ Update request পাঠানো
+    
     const res = await fetch(`http://localhost:3000/all-arts/${currentArtwork._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(currentArtwork),
     });
 
-    // ✅ Response status চেক করা
+    
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const updatedArtwork = await res.json();
     console.log("✅ Artwork updated:", updatedArtwork);
 
-    // ✅ Local state update
+    
     setArtworks((prev) =>
       prev.map((art) =>
         art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
@@ -82,6 +82,25 @@ const MyArtwork = ({ onDelete, onUpdate }) => {
     handleCloseModal();
   } catch (err) {
     console.error("❌ Update failed:", err);
+  }
+};
+
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this artwork?");
+  if (!confirmDelete) return;
+
+  try {
+    const res = await fetch(`http://localhost:3000/all-arts/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+   
+    setArtworks((prev) => prev.filter((art) => art._id !== id));
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -151,7 +170,7 @@ const MyArtwork = ({ onDelete, onUpdate }) => {
                 <Pencil className="w-4 h-4" /> Update
               </button>
               <button
-                onClick={() => onDelete(artwork._id)}
+                onClick={() => handleDelete(artwork._id)}
                 className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-black rounded-lg transition-all"
               >
                 <Trash2 className="w-4 h-4" /> Delete
