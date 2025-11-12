@@ -9,8 +9,10 @@ const MyArtwork = ({ onDelete, onUpdate }) => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentArtwork, setCurrentArtwork] = useState(null);
+  console.log(artworks);
+  
 
-  // Fetch artworks by user email
+  
   useEffect(() => {
     if (!user?.email) return;
 
@@ -49,13 +51,41 @@ const MyArtwork = ({ onDelete, onUpdate }) => {
     setCurrentArtwork((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onUpdate && currentArtwork) {
-      onUpdate(currentArtwork._id, currentArtwork);
-      handleCloseModal();
-    }
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!currentArtwork || !currentArtwork._id) {
+    console.error("Artwork ID missing!");
+    return;
+  }
+
+  try {
+    // ✅ Update request পাঠানো
+    const res = await fetch(`http://localhost:3000/all-arts/${currentArtwork._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(currentArtwork),
+    });
+
+    // ✅ Response status চেক করা
+    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+    const updatedArtwork = await res.json();
+    console.log("✅ Artwork updated:", updatedArtwork);
+
+    // ✅ Local state update
+    setArtworks((prev) =>
+      prev.map((art) =>
+        art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
+      )
+    );
+
+    handleCloseModal();
+  } catch (err) {
+    console.error("❌ Update failed:", err);
+  }
+};
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364] grid md:grid-cols-2 gap-6 p-6">
