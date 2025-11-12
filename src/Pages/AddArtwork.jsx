@@ -1,5 +1,6 @@
 import { use } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 
 const AddArtwork = () => {
@@ -23,9 +24,12 @@ console.log(user);
       created_by: user.displayName,
       userPhoto: user.photoURL,
       userEmail: user.email
+
+     
       
 
     }
+     
     
 fetch("http://localhost:3000/all-arts", {
       method: "POST",
@@ -40,7 +44,8 @@ fetch("http://localhost:3000/all-arts", {
       })
       .catch((err) => console.log(err));
   
-    
+    e.target.reset()
+    toast.success('Artwork added ! Check Explore Artwork')
   };
 
   return (
