@@ -21,11 +21,11 @@ const router = createBrowserRouter([
       {path: "login", element:<LoginPage></LoginPage>},
       {path:"register", element: <RegisterPage></RegisterPage>},
       {path: "add-art", element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>},
-      {path: "all-arts", element: <ExploreArtworks></ExploreArtworks>,
+      {path: "all-arts", element: <PrivateRoute><ExploreArtworks></ExploreArtworks></PrivateRoute>,
         loader: ()=> fetch('http://localhost:3000/all-arts')
       },
-      {path: '/all-arts/:id', element: <ArtworkDetails></ArtworkDetails>},
-      {path: 'myart', element: <MyArtwork></MyArtwork>
+      {path: '/all-arts/:id', element: <PrivateRoute><ArtworkDetails></ArtworkDetails></PrivateRoute>},
+      {path: 'myart', element: <PrivateRoute><MyArtwork></MyArtwork></PrivateRoute>
       }
     ],
   },
