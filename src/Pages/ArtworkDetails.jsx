@@ -1,20 +1,17 @@
 import { use, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, ArrowLeft } from "lucide-react";
 import { AuthContext } from "../provider/AuthProvider";
 
 const ArtworkDetails = () => {
-    const {user} = use(AuthContext)
-  const { id } = useParams(); 
+  const { user } = use(AuthContext);
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalArtworks, setTotalArtworks] = useState(null);
 
-  console.log(totalArtworks);
-  
-
-  
   useEffect(() => {
     fetch(`http://localhost:3000/all-arts/${id}`)
       .then((res) => res.json())
@@ -25,19 +22,16 @@ const ArtworkDetails = () => {
       .catch((err) => console.error(err));
   }, [id]);
 
-useEffect(() => {
-  if (user?.email) {
-    fetch(`http://localhost:3000/artist-arts/${user.email}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log("Total artworks:", data.totalArtworks);
-        setTotalArtworks(data.totalArtworks);
-      })
-      .catch(err => console.log(err));
-  }
-}, [user?.email]);
-
-
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`http://localhost:3000/artist-arts/${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTotalArtworks(data.totalArtworks);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user?.email]);
 
   const handleLike = async () => {
     try {
@@ -73,10 +67,10 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-6 flex justify-center items-center text-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-6 flex flex-col items-center text-gray-100">
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-10 bg-white/10 p-8 rounded-3xl border border-white/20 shadow-2xl backdrop-blur-xl">
 
-       
+        {/* Artwork Image */}
         <motion.div
           className="relative overflow-hidden rounded-3xl"
           whileHover={{ scale: 1.03 }}
@@ -89,7 +83,7 @@ useEffect(() => {
           />
         </motion.div>
 
-        
+        {/* Artwork Details */}
         <div className="space-y-4">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-amber-300 bg-clip-text text-transparent">
             {artwork.title}
@@ -102,7 +96,7 @@ useEffect(() => {
             <p><span className="font-semibold text-gray-200">Dimensions:</span> {artwork.dimensions || "N/A"}</p>
           </div>
 
-          
+          {/* Artist Info */}
           <div className="flex items-center gap-4 pt-4 border-t border-white/20 mt-6">
             <img
               src={artwork.userPhoto || "https://i.ibb.co/2K3G6D6/default-avatar.png"}
@@ -115,7 +109,7 @@ useEffect(() => {
             </div>
           </div>
 
-          
+          {/* Buttons */}
           <div className="flex gap-4 pt-6">
             <button
               onClick={handleLike}
@@ -132,6 +126,15 @@ useEffect(() => {
           </div>
         </div>
       </div>
+
+      {/* Go Back Button */}
+      <motion.button
+        onClick={() => navigate(-1)}
+        className="mt-10 flex items-center gap-2 bg-gradient-to-r from-[#38bdf8] to-[#3b82f6] text-white px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
+        whileHover={{ y: -3 }}
+      >
+        <ArrowLeft className="w-5 h-5" /> Go Back
+      </motion.button>
     </div>
   );
 };

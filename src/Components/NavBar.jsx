@@ -27,19 +27,19 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 text-gray-300 font-medium">
-          <NavLink to="/" className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to="/" className="hover:text-[#38bdf8] transition-colors duration-300 nav-link">
             Home
           </NavLink>
-          <NavLink to="all-arts" className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to="all-arts" className="hover:text-[#38bdf8] transition-colors duration-300 nav-link">
             Explore Artworks
           </NavLink>
-          <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300 nav-link">
             Add Artwork
           </NavLink>
-          <NavLink to='myart' className="hover:text-[#38bdf8] transition-colors duration-300">
+          <NavLink to='myart' className="hover:text-[#38bdf8] transition-colors duration-300 nav-link">
             My Gallery
           </NavLink>
-          <button className="hover:text-[#38bdf8] transition-colors duration-300">
+          <button className="hover:text-[#38bdf8] transition-colors duration-300 nav-link">
             My Favorites
           </button>
         </div>

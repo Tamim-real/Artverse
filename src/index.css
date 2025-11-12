@@ -8,3 +8,21 @@
 .animate-slideDown {
   animation: slideDown 0.3s ease forwards;
 }
+
+.navbar .active {
+  color: #fbbf24; /* gold accent */
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(17,24,39,0.6));
+  border: 1px solid rgba(59,130,246,0.4);
+  border-radius: 9999px; /* fully rounded pill */
+  padding: 6px 14px;
+  box-shadow: 0 0 12px rgba(251,191,36,0.4), 0 0 4px rgba(59,130,246,0.3);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.navbar .active:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #3b82f6, #fbbf24);
+  box-shadow: 0 0 16px rgba(251,191,36,0.6), 0 0 8px rgba(59,130,246,0.6);
+}

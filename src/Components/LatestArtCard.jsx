@@ -7,7 +7,7 @@ import { Link } from "react-router";
 // Usage: <SmartArtCard art={art} onView={(art) => console.log(art)} />
 // art: { image, title, artist, category, likes }
 
-export default function ArtCard({ art, onView}) {
+export default function LatestArtCard({ art, onView}) {
   const [likes, setLikes] = useState(art?.likes || 0);
   const [liked, setLiked] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -25,13 +25,13 @@ export default function ArtCard({ art, onView}) {
     <>
       <article
         className="group relative w-full max-w-sm rounded-2xl overflow-hidden shadow-lg bg-white ring-1 ring-slate-100"
-        aria-label={`Artwork card: ${art.title} by ${art.created_by}`}>
+        aria-label={`Artwork card: ${art.title} by ${art.artist}`}>
 
         {/* Image area */}
         <div className="relative h-52 sm:h-64 md:h-72 overflow-hidden bg-slate-50">
           <img
             src={art.image}
-            alt={`${art.title} by ${art.created_by}`}
+            alt={`${art.title} by ${art.artist}`}
             className="w-full h-full object-cover transform transition duration-500 group-hover:scale-105"
             loading="lazy"
           />
@@ -132,7 +132,7 @@ export default function ArtCard({ art, onView}) {
 
               <div className="p-6">
                 <h2 className="text-lg font-bold text-slate-900">{art.title}</h2>
-                <p className="mt-1 text-sm text-slate-600">By {art.artist}</p>
+                <p className="mt-1 text-sm text-slate-600">By {art.created_by}</p>
                 <p className="mt-2 text-sm text-slate-500">Category: {art.category}</p>
 
                 <div className="mt-4 text-sm text-slate-700">

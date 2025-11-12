@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
    
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <Home />,loader: ()=>fetch('http://localhost:3000/latest-arts') },
       {path: "login", element:<LoginPage></LoginPage>},
       {path:"register", element: <RegisterPage></RegisterPage>},
       {path: "add-art", element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>},

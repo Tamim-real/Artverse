@@ -2,36 +2,28 @@ import { use } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
-
 const AddArtwork = () => {
-
-const {user} = use(AuthContext)
-console.log(user);
-
+  const { user } = use(AuthContext);
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      image : e.target.image.value,
-      title : e.target.title.value,
+      image: e.target.image.value,
+      title: e.target.title.value,
       category: e.target.category.value,
       medium: e.target.medium.value,
       description: e.target.description.value,
       dimensions: e.target.dimensions.value,
-      price : e.target.price.value,
-      visibility : e.target.visibility.value,
+      price: e.target.price.value,
+      visibility: e.target.visibility.value,
       created_at: new Date(),
       created_by: user.displayName,
       userPhoto: user.photoURL,
-      userEmail: user.email
+      userEmail: user.email,
+    };
 
-     
-      
-
-    }
-     
-    
-fetch("http://localhost:3000/all-arts", {
+    fetch("http://localhost:3000/all-arts", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -43,9 +35,9 @@ fetch("http://localhost:3000/all-arts", {
         console.log(data);
       })
       .catch((err) => console.log(err));
-  
-    e.target.reset()
-    toast.success('Artwork added ! Check Explore Artwork')
+
+    e.target.reset();
+    toast.success("Artwork added! Check Explore Artwork");
   };
 
   return (
@@ -64,8 +56,6 @@ fetch("http://localhost:3000/all-arts", {
           <input
             type="url"
             name="image"
-            
-            
             required
             placeholder="Enter artwork image URL"
             className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
@@ -78,8 +68,6 @@ fetch("http://localhost:3000/all-arts", {
           <input
             type="text"
             name="title"
-            
-            
             required
             placeholder="Enter artwork title"
             className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
@@ -90,33 +78,38 @@ fetch("http://localhost:3000/all-arts", {
         <div>
           <label className="block mb-1 font-semibold">Category</label>
           <select
-  name="category"
-  
-  
-  required
-  className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
->
-  <option value="">Select a category</option>
-  <option value="Portrait">Portrait</option>
-  <option value="Abstract">Abstract</option>
-  <option value="Landscape">Landscape</option>
-  <option value="Digital Art">Digital Art</option>
-  <option value="Street Art">Street Art</option>
-</select>
-
+            name="category"
+            required
+            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+          >
+            <option value="">Select a category</option>
+            <option value="Portrait">Portrait</option>
+            <option value="Abstract">Abstract</option>
+            <option value="Landscape">Landscape</option>
+            <option value="Digital Art">Digital Art</option>
+            <option value="Street Art">Street Art</option>
+            <option value="Photography">Photography</option>
+            <option value="Mixed Media">Mixed Media</option>
+          </select>
         </div>
 
-        {/* Medium / Tools */}
+        {/* Medium / Tools Dropdown */}
         <div>
           <label className="block mb-1 font-semibold">Medium / Tools</label>
-          <input
-            type="text"
+          <select
             name="medium"
-           
-            
-            placeholder="e.g., Oil, Acrylic, Digital, Photoshop"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
-          />
+            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+          >
+            <option value="">Select medium / tools</option>
+            <option value="Oil Painting">Oil Painting</option>
+            <option value="Acrylic Painting">Acrylic Painting</option>
+            <option value="Watercolor">Watercolor</option>
+            <option value="Charcoal">Charcoal</option>
+            <option value="Digital / Photoshop">Digital / Photoshop</option>
+            <option value="Digital / Procreate">Digital / Procreate</option>
+            <option value="3D / Blender">3D / Blender</option>
+            <option value="Photography / DSLR">Photography / DSLR</option>
+          </select>
         </div>
 
         {/* Description */}
@@ -124,25 +117,31 @@ fetch("http://localhost:3000/all-arts", {
           <label className="block mb-1 font-semibold">Description</label>
           <textarea
             name="description"
-           
-            
             placeholder="Write a short description about your artwork"
             rows="4"
             className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
           />
         </div>
 
-        {/* Dimensions */}
+        {/* Dimensions Dropdown */}
         <div>
-          <label className="block mb-1 font-semibold">Dimensions (optional)</label>
-          <input
-            type="text"
+          <label className="block mb-1 font-semibold">
+            Dimensions (optional)
+          </label>
+          <select
             name="dimensions"
-           
-            
-            placeholder="e.g., 24x36 inches"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
-          />
+            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+          >
+            <option value="">Select dimensions</option>
+            <option value="8x10 inches">8x10 inches</option>
+            <option value="12x16 inches">12x16 inches</option>
+            <option value="18x24 inches">18x24 inches</option>
+            <option value="24x36 inches">24x36 inches</option>
+            <option value="30x40 inches">30x40 inches</option>
+            <option value="A4">A4</option>
+            <option value="A3">A3</option>
+            <option value="Custom Size">Custom Size</option>
+          </select>
         </div>
 
         {/* Price */}
@@ -151,8 +150,6 @@ fetch("http://localhost:3000/all-arts", {
           <input
             type="number"
             name="price"
-            
-            
             placeholder="e.g., 1200"
             className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
           />
@@ -162,15 +159,12 @@ fetch("http://localhost:3000/all-arts", {
         <div>
           <label className="block mb-1 font-semibold">Visibility</label>
           <select
-  name="visibility"
-  
-  
-  className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
->
-  <option value="Public">Public</option>
-  <option value="Private">Private</option>
-</select>
-
+            name="visibility"
+            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+          >
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+          </select>
         </div>
 
         {/* User Info */}
@@ -211,3 +205,4 @@ fetch("http://localhost:3000/all-arts", {
 };
 
 export default AddArtwork;
+d

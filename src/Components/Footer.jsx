@@ -56,7 +56,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
           <p>© {currentYear} Artverse. All rights reserved.</p>
           <p className="mt-2 md:mt-0 text-gray-400 hover:text-[#fbbf24] cursor-pointer transition-colors duration-300">
-            Designed with ❤️ by Fahim
+            Designed with ❤️ by Tamims
           </p>
         </div>
       </div>

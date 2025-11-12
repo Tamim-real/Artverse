@@ -6,7 +6,7 @@ const slides = [
     id: 1,
     title: "Discover Timeless Artworks",
     subtitle: "Experience the beauty of creation and imagination.",
-    img: "https://images.unsplash.com/photo-1587614382346-4ec53f4a1e4f?auto=format&fit=crop&w=1600&q=80", // modern gallery interior
+    img: "https://images.unsplash.com/photo-1556139918-9b92e8b00105?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // modern gallery interior
     gradient: "from-[#2d1b3d] to-[#5d2a6e]",
   },
   {
@@ -20,7 +20,7 @@ const slides = [
     id: 3,
     title: "Explore The World Of Colors",
     subtitle: "Dive into an inspiring collection of modern and abstract art.",
-    img: "https://images.unsplash.com/photo-1612831455549-1056c28c01c7?auto=format&fit=crop&w=1600&q=80", // abstract color explosion
+    img: "https://images.unsplash.com/photo-1752401369012-703dcd9e763d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // abstract color explosion
     gradient: "from-[#4a1a5c] to-[#8b3a8a]",
   },
 ];
