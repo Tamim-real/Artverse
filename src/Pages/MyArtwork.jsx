@@ -19,7 +19,7 @@ const MyArtwork = () => {
     const fetchArtworks = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/myart/${encodeURIComponent(user.email)}`
+          `https://artverse-server.vercel.app/myart/${encodeURIComponent(user.email)}`
         );
         const data = await res.json();
         setArtworks(data);
@@ -60,7 +60,7 @@ const MyArtwork = () => {
 
   try {
     
-    const res = await fetch(`http://localhost:3000/all-arts/${currentArtwork._id}`, {
+    const res = await fetch(`https://artverse-server.vercel.app/all-arts/${currentArtwork._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(currentArtwork),
@@ -90,7 +90,7 @@ const handleDelete = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(`http://localhost:3000/all-arts/${id}`, {
+    const res = await fetch(`https://artverse-server.vercel.app/all-arts/${id}`, {
       method: "DELETE",
     });
 

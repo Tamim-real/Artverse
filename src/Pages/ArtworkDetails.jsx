@@ -15,7 +15,7 @@ const ArtworkDetails = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:3000/all-arts/${id}`)
+    fetch(`https://artverse-server.vercel.app/all-arts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setArtwork(data);
@@ -26,7 +26,7 @@ const ArtworkDetails = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/artist-arts/${user.email}`)
+      fetch(`https://artverse-server.vercel.app/artist-arts/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setTotalArtworks(data.totalArtworks);
@@ -39,7 +39,7 @@ const handleLike = async (id) => {
   if (!user) return alert("Please login first!");
 
   try {
-    const res = await fetch(`http://localhost:3000/all-arts/like/${id}`, {
+    const res = await fetch(`https://artverse-server.vercel.app/all-arts/like/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: user.email }),
@@ -61,7 +61,7 @@ const handleLike = async (id) => {
 
   const handleFavorite = async () => {
     try {
-      await fetch(`http://localhost:3000/favorites`, {
+      await fetch(`https://artverse-server.vercel.app/favorites`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(artwork),

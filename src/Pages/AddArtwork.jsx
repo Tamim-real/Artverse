@@ -23,7 +23,7 @@ const AddArtwork = () => {
       userEmail: user.email,
     };
 
-    fetch("http://localhost:3000/all-arts", {
+    fetch("https://artverse-server.vercel.app/all-arts", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

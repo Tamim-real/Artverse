@@ -17,12 +17,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
    
     children: [
-      { path: "/", element: <Home />,loader: ()=>fetch('http://localhost:3000/latest-arts') },
+      { path: "/", element: <Home />,loader: ()=>fetch('https://artverse-server.vercel.app/latest-arts') },
       {path: "login", element:<LoginPage></LoginPage>},
       {path:"register", element: <RegisterPage></RegisterPage>},
       {path: "add-art", element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>},
       {path: "all-arts", element: <PrivateRoute><ExploreArtworks></ExploreArtworks></PrivateRoute>,
-        loader: ()=> fetch('http://localhost:3000/all-arts')
+        loader: ()=> fetch('https://artverse-server.vercel.app/all-arts')
       },
       {path: '/all-arts/:id', element: <PrivateRoute><ArtworkDetails></ArtworkDetails></PrivateRoute>},
       {path: 'myart', element: <PrivateRoute><MyArtwork></MyArtwork></PrivateRoute>
