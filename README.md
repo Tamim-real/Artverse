@@ -1,24 +1,64 @@
 # 🎨 Artverse
 
-[Live Site](https://your-client-live-site-url.com)  
+[![Vercel](https://img.shields.io/badge/Hosted%20on-Vercel-000?style=for-the-badge&logo=vercel)](https://your-client-live-site-url.com)
+[![React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react)]
+[![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css)]
+[![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb)]
 
-Artverse is your personal digital gallery where creativity meets the web. Showcase your masterpieces, explore others’ artworks, and manage your art world effortlessly—all in one platform.  
+Artverse is your **personal digital gallery** where creativity meets the web. Showcase your masterpieces, explore artworks, and manage your art world effortlessly.  
 
-## ✨ Key Features
+---
 
-- **🖼 Explore Stunning Artworks** – Discover artworks from talented artists across different styles and mediums.  
-- **✏️ Add & Edit Your Art** – Upload your creations with images, description, dimensions, price, and more.  
-- **🏛 Personal Gallery** – Your own curated space to manage, update, or delete your artworks anytime.  
-- **💖 Favorites Collection** – Save the artworks you love and create your inspiration board.  
-- **🌙 Dark & Light Mode** – Switch between themes for a comfortable viewing experience anytime.  
+## 🌟 Key Features
 
-## ⚡ Tech Stack
+- **🖼 Explore Stunning Artworks**
+  - Search and filter by title or category.
+  - Cards animate with **React Awesome Reveal** for smooth fade/slide-in effects.
+  - Lazy-loaded images for faster performance.
 
-- **Frontend**: React, Tailwind CSS, Framer Motion  
-- **Backend**: Node.js, Express  
-- **Database**: MongoDB  
-- **Authentication**: Firebase Authentication  
-- **Hosting**: Vercel / Netlify  
+- **✏️ Add & Edit Your Art**
+  - Upload artworks with images, title, category, medium/tools, description, dimensions, price, and visibility.
+  - Update or delete artworks anytime.
 
-## 🚀 Quick Start
+- **🏛 Personal Gallery**
+  - See all your uploaded artworks.
+  - Track total uploads.
+  - Edit artwork details on-the-fly.
 
+- **💖 Favorites Collection**
+  - Save artworks you love.
+  - Curate your own inspiration board.
+  - Add/remove artworks seamlessly.
+
+- **🌙 Dark & Light Mode**
+  - Toggle themes anytime.
+  - Preference saved in `localStorage`.
+
+- **🛡 Authentication**
+  - Secure login & signup using **Firebase Authentication**.
+  - Google sign-in option.
+
+- **💡 Tooltips**
+  - Hover over user avatars or buttons to see info using **React Tooltip**.
+
+- **⚡ Smooth Animations**
+  - All interactions enhanced with **React Awesome Reveal** & **Framer Motion**.
+
+---
+
+
+## 🛠 Tech Stack
+
+| Frontend | Backend | Database | Auth |
+|----------|--------|---------|------|
+| React, Tailwind CSS, Framer Motion, React Tooltip, React Awesome Reveal | Node.js, Express | MongoDB | Firebase Authentication |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/your-username/artverse.git
+cd artverse
+npm install
+npm run dev

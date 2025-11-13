@@ -50,7 +50,7 @@ export default function LatestArtCard({ art, onView }) {
             </div>
 
             <div className="flex flex-col items-end text-right text-xs text-gray-500 dark:text-gray-400">
-              <span className="font-medium text-sm text-gray-800 dark:text-gray-100">{likes}</span>
+              <span className="font-medium text-sm text-gray-800 dark:text-gray-100">{art?.likes?.length || 0}</span>
               <span className="mt-0.5">likes</span>
             </div>
           </div>

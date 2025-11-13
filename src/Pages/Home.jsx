@@ -4,19 +4,27 @@ import { useLoaderData } from 'react-router';
 import LatestArtCard from '../Components/LatestArtCard';
 import TopArtists from '../Components/TopArtists';
 import CommunityHighlights from '../Components/CommunityHighlights';
+import { Fade } from "react-awesome-reveal"; 
 
 const Home = () => {
-    const data = useLoaderData()
+    const data = useLoaderData();
+
     return (
         <div>
-            <HeroSlider></HeroSlider>
+            <HeroSlider />
+
             <section className='py-5'>
-                <h1 className='  text-3xl text-center font-bold py-3'>Featured Artworks</h1>
-                <div className='w-8/12 mt-3 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-3'>
-                    {
-                        data.map(art => <LatestArtCard art={art}></LatestArtCard>)
-                    }
-                </div>
+                <h1 className='text-3xl text-center font-bold py-3'>Featured Artworks</h1>
+                
+                {/* Wrap cards with Fade */}
+                <Fade cascade damping={0.1} triggerOnce>
+                    <div className='w-8/12 mt-3 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-3'>
+                        {
+                            data.map(art => <LatestArtCard key={art._id} art={art} />)
+                        }
+                    </div>
+                </Fade>
+
                 <TopArtists />
                 <CommunityHighlights />
             </section>

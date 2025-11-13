@@ -17,7 +17,9 @@ const MyArtwork = () => {
     const fetchArtworks = async () => {
       try {
         const res = await fetch(
-          `https://artverse-server.vercel.app/myart/${encodeURIComponent(user.email)}`
+          `https://artverse-server.vercel.app/myart/${encodeURIComponent(
+            user.email
+          )}`
         );
         const data = await res.json();
         setArtworks(data);
@@ -31,7 +33,6 @@ const MyArtwork = () => {
     fetchArtworks();
   }, [user?.email]);
 
-  // ✅ Loading Spinner
   if (loading)
     return (
       <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
@@ -39,15 +40,9 @@ const MyArtwork = () => {
       </div>
     );
 
-  // ✅ No Artwork Found UI
   if (artworks.length === 0) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-gray-100 dark:bg-gray-900">
-        <img
-          src="https://illustrations.popsy.co/gray/hard-drive.svg"
-          alt="No artworks"
-          className="w-48 h-48 mb-6 opacity-80"
-        />
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
           You haven’t added any artworks yet 🎨
         </h2>
@@ -193,10 +188,12 @@ const MyArtwork = () => {
 
                 <div className="text-sm space-y-1 mt-2">
                   <p>
-                    <span className="font-semibold">Category:</span> {artwork.category || "N/A"}
+                    <span className="font-semibold">Category:</span>{" "}
+                    {artwork.category || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold">Dimensions:</span> {artwork.dimensions || "N/A"}
+                    <span className="font-semibold">Dimensions:</span>{" "}
+                    {artwork.dimensions || "N/A"}
                   </p>
                   <p>
                     <span className="font-semibold">Price:</span>{" "}
@@ -244,7 +241,10 @@ const MyArtwork = () => {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-yellow-400 mb-4 text-center">
               Update Artwork
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-3 text-gray-900 dark:text-gray-100">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-3 text-gray-900 dark:text-gray-100"
+            >
               <input
                 type="text"
                 name="image"

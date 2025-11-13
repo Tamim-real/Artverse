@@ -3,15 +3,16 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
-const Navbar = () => {
+const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const { user, logOut } = useContext(AuthContext);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Toggle dark mode and save preference in localStorage
   const handleToggleDarkMode = () => {
     setDarkMode((prev) => {
       const next = !prev;
@@ -21,7 +22,6 @@ const Navbar = () => {
     });
   };
 
-  // Initialize dark mode based on localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -55,7 +55,6 @@ const Navbar = () => {
 
         {/* Right Side Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* Dark/Light Mode Toggle */}
           <button
             onClick={handleToggleDarkMode}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-yellow-300 hover:scale-110 transition-transform duration-200"
@@ -65,19 +64,18 @@ const Navbar = () => {
 
           {user ? (
             <>
-              {/* Profile */}
-              <div className="relative group">
+              {/* Profile with Tooltip */}
+              <div className="relative">
                 <img
                   src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
                   alt="User"
                   className="w-10 h-10 rounded-full border-2 border-[#38bdf8] object-cover cursor-pointer"
+                  data-tooltip-id="userTooltip"
+                  data-tooltip-content={user.displayName || "User"}
                 />
-                <span className="absolute top-12 left-1/2 -translate-x-1/2 px-3 py-1 bg-slate-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 shadow-lg whitespace-nowrap">
-                  {user.displayName || "User"}
-                </span>
+                <ReactTooltip id="userTooltip" place="bottom" effect="solid" />
               </div>
 
-              {/* Logout */}
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 rounded-xl border border-red-400 text-red-400 hover:bg-red-400 hover:text-black transition-all duration-300"
@@ -134,7 +132,10 @@ const Navbar = () => {
                     src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
                     alt="User"
                     className="w-12 h-12 rounded-full border-2 border-[#38bdf8] object-cover"
+                    data-tooltip-id="userTooltipMobile"
+                    data-tooltip-content={user.displayName || "User"}
                   />
+                  <ReactTooltip id="userTooltipMobile" place="bottom" effect="solid" />
                   <span className="text-sm text-gray-300 font-medium">{user.displayName || "User"}</span>
                 </div>
                 <button
@@ -172,4 +173,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
