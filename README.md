@@ -61,7 +61,7 @@ Artverse is your **personal digital gallery** where creativity meets the web. Sh
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/your-username/artverse.git
+git clone https://github.com/Tamim-real/Artverse
 cd artverse
 npm install
 npm run dev
