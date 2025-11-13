@@ -45,7 +45,7 @@ const AddArtwork = () => {
           Add New Artwork
         </h2>
 
-        {/* Image URL */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Image URL
@@ -59,7 +59,7 @@ const AddArtwork = () => {
           />
         </div>
 
-        {/* Title */}
+       
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Title
@@ -73,7 +73,7 @@ const AddArtwork = () => {
           />
         </div>
 
-        {/* Category */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Category
@@ -94,7 +94,7 @@ const AddArtwork = () => {
           </select>
         </div>
 
-        {/* Medium / Tools */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Medium / Tools
@@ -115,7 +115,7 @@ const AddArtwork = () => {
           </select>
         </div>
 
-        {/* Description */}
+       
        <div>
   <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
     Description
@@ -123,12 +123,12 @@ const AddArtwork = () => {
   <textarea
     name="description"
     placeholder="Write a short description about your artwork"
-    rows="3"  // reduced from 4 to 3
+    rows="3"  
     className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
   />
 </div>
 
-        {/* Dimensions */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Dimensions (optional)
@@ -149,7 +149,7 @@ const AddArtwork = () => {
           </select>
         </div>
 
-        {/* Price */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Price (optional)
@@ -162,7 +162,7 @@ const AddArtwork = () => {
           />
         </div>
 
-        {/* Visibility */}
+        
         <div>
           <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Visibility
@@ -176,7 +176,7 @@ const AddArtwork = () => {
           </select>
         </div>
 
-        {/* User Info */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
@@ -202,7 +202,7 @@ const AddArtwork = () => {
           </div>
         </div>
 
-        {/* Submit Button */}
+        
         <div className="text-center pt-4">
           <button
             type="submit"

@@ -28,7 +28,7 @@ const ExploreArtworks = () => {
         Explore Artworks
       </h1>
 
-      {/* Search & Filter */}
+      
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 bg-white p-4 rounded-2xl shadow-md border border-gray-200">
         <div className="flex items-center w-full sm:w-2/3 rounded-xl px-3 py-2 shadow-inner border border-gray-300 focus-within:ring-2 ring-indigo-300 transition-all">
           <Search size={18} className="text-gray-400 mr-2" />
@@ -57,7 +57,7 @@ const ExploreArtworks = () => {
         </div>
       </div>
 
-      {/* Artworks with Fade */}
+      
       <Fade cascade damping={0.1} triggerOnce>
         <div className="w-11/12 md:w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredArtworks.length > 0 ? (

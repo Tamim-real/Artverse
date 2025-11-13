@@ -108,7 +108,7 @@ const MyFavorites = () => {
         </p>
         <Link
           to="/all-art"
-          className="mt-6 px-5 py-2 rounded-lg bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] px-6 text-white transition"
+          className="mt-6 px-5 py-2 rounded-lg bg-gray-400 px-6 text-white transition"
         >
           Browse Artworks
         </Link>

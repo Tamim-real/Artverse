@@ -56,7 +56,7 @@ export default function LatestArtCard({ art, onView }) {
           </div>
 
           <div className="mt-4 flex items-center gap-3">
-            <Link
+            <Link 
               to={`/all-arts/${art._id}`}
               onClick={() => {
                 setShowDetails(true);
@@ -64,78 +64,12 @@ export default function LatestArtCard({ art, onView }) {
               }}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-lg shadow-sm text-sm font-medium transition-transform transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
-              <Eye className="h-4 w-4" />
+              <Eye className="h-4 w-4 " />
               <span>View Details</span>
             </Link>
           </div>
-
-          <div className="mt-3 text-xs text-gray-500 dark:text-gray-300 line-clamp-3">
-            {art.description || "No description provided."}
-          </div>
         </div>
       </article>
-
-      {showDetails && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setShowDetails(false)}
-            aria-hidden="true"
-          />
-
-          <motion.dialog
-            role="dialog"
-            aria-modal="true"
-            initial={{ y: 40, scale: 0.98 }}
-            animate={{ y: 0, scale: 1 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative z-10 max-w-3xl w-full rounded-2xl bg-white dark:bg-gray-800 shadow-2xl overflow-hidden"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="h-64 md:h-auto">
-                <img src={art.image} alt={art.title} className="w-full h-full object-cover" />
-              </div>
-
-              <div className="p-6">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{art.title}</h2>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">By {art.created_by}</p>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Category: {art.category}</p>
-
-                <div className="mt-4 text-sm text-gray-700 dark:text-gray-200">
-                  <strong>Likes:</strong> {likes}
-                </div>
-
-                <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-                  {art.longDescription || "No extended description."}
-                </div>
-
-                <div className="mt-6 flex gap-3">
-                  <button
-                    onClick={() => setShowDetails(false)}
-                    className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500"
-                  >
-                    Close
-                  </button>
-
-                  <a
-                    href={art.purchase || '#'}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:brightness-95"
-                  >
-                    Buy / Visit
-                  </a>
-                </div>
-              </div>
-            </div>
-          </motion.dialog>
-        </motion.div>
-      )}
     </>
   );
 }

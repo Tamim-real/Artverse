@@ -167,7 +167,7 @@ const MyArtwork = () => {
               transition={{ type: "spring", stiffness: 200 }}
               className="relative bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 w-full"
             >
-              {/* Artwork Image */}
+             
               <div className="relative overflow-hidden h-52 sm:h-56 md:h-60">
                 <img
                   src={artwork.image}
@@ -176,7 +176,7 @@ const MyArtwork = () => {
                 />
               </div>
 
-              {/* Content */}
+              
               <div className="p-4 space-y-2 text-gray-900 dark:text-gray-100">
                 <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-amber-300 bg-clip-text text-transparent truncate">
                   {artwork.title}
@@ -213,11 +213,11 @@ const MyArtwork = () => {
                   </p>
                 </div>
 
-                {/* Buttons */}
+               
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() => handleOpenModal(artwork)}
-                    className="flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-black rounded-lg transition-all"
                   >
                     <Pencil className="w-4 h-4" /> Update
                   </button>
@@ -234,7 +234,7 @@ const MyArtwork = () => {
         </div>
       </div>
 
-      {/* Update Modal */}
+      
       {isModalOpen && currentArtwork && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl w-[90%] max-w-lg shadow-xl border border-gray-300 dark:border-gray-700">

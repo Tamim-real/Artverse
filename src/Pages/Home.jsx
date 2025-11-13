@@ -16,7 +16,7 @@ const Home = () => {
             <section className='py-5'>
                 <h1 className='text-3xl text-center font-bold py-3'>Featured Artworks</h1>
                 
-                {/* Wrap cards with Fade */}
+                
                 <Fade cascade damping={0.1} triggerOnce>
                     <div className='w-8/12 mt-3 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-3'>
                         {

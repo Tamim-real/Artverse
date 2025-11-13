@@ -13,7 +13,7 @@ const ArtworkDetails = () => {
   const [loading, setLoading] = useState(true);
   const [totalArtworks, setTotalArtworks] = useState(0);
 
-  
+
   useEffect(() => {
     fetch(`https://artverse-server.vercel.app/all-arts/${id}`)
       .then((res) => res.json())
@@ -27,14 +27,14 @@ const ArtworkDetails = () => {
       });
   }, [id]);
 
-  
+
   useEffect(() => {
     if (!artwork?.userEmail) return;
 
     fetch(`https://artverse-server.vercel.app/artist-arts/${artwork.userEmail}`)
       .then((res) => res.json())
       .then((data) => {
-       
+
         setTotalArtworks(data.totalArtworks || 0);
       })
       .catch((err) => console.log(err));
@@ -101,7 +101,7 @@ const ArtworkDetails = () => {
   return (
     <div className="min-h-screen py-24 px-4 sm:px-6 md:px-10 flex flex-col items-center bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 bg-white dark:bg-gray-800/80 p-6 sm:p-10 rounded-3xl border border-white/10 dark:border-gray-700 shadow-2xl backdrop-blur-xl transition-colors duration-300">
-        {/* Artwork Image */}
+        
         <motion.div className="relative overflow-hidden rounded-3xl" whileHover={{ scale: 1.03 }}>
           <motion.img
             src={artwork.image}
@@ -111,13 +111,15 @@ const ArtworkDetails = () => {
           />
         </motion.div>
 
-        {/* Artwork Info */}
+       
         <div className="space-y-4 text-gray-900 dark:text-gray-100">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-amber-300 bg-clip-text text-transparent">
             {artwork.title}
           </h2>
 
-          <p className="text-gray-700 dark:text-gray-300 text-lg">{artwork.description}</p>
+          <p className="text-gray-700 dark:text-gray-300 text-lg">
+            <span className="font-semibold">Description:</span> {artwork.description}
+          </p>
 
           <div className="flex flex-col gap-2 text-sm text-gray-600 dark:text-gray-400">
             <p>
@@ -131,7 +133,7 @@ const ArtworkDetails = () => {
             </p>
           </div>
 
-          {/* Artist Info */}
+        
           <div className="flex items-center gap-4 pt-4 border-t border-gray-300 dark:border-gray-600 mt-6">
             <img
               src={artwork.userPhoto || "https://i.ibb.co/2K3G6D6/default-avatar.png"}
@@ -144,7 +146,7 @@ const ArtworkDetails = () => {
             </div>
           </div>
 
-          {/* Like & Favorite Buttons */}
+          
           <div className="flex flex-wrap gap-3 pt-6">
             <button
               onClick={() => handleLike(artwork._id)}
@@ -165,7 +167,7 @@ const ArtworkDetails = () => {
 
       <motion.button
         onClick={() => navigate(-1)}
-        className="mt-10 flex items-center gap-2 bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] text-black px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+        className="mt-10 flex items-center gap-2 bg-gray-300 text-black px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
         whileHover={{ y: -3 }}
       >
         <ArrowLeft className="w-5 h-5" /> Go Back

@@ -31,7 +31,7 @@ const HeroSlider = () => {
   const [current, setCurrent] = useState(0);
   const sectionRef = useRef(null);
 
-  // Animation on slide change
+  
   useEffect(() => {
     const contents = sectionRef.current?.querySelectorAll(".slide-content");
     if (!contents) return;
@@ -43,7 +43,7 @@ const HeroSlider = () => {
     return () => tl.kill();
   }, [current]);
 
-  // Auto-play
+
   useEffect(() => {
     const id = setInterval(() => {
       setCurrent((c) => (c + 1) % slides.length);
@@ -51,22 +51,22 @@ const HeroSlider = () => {
     return () => clearInterval(id);
   }, []);
 
-  const goTo = (i) => setCurrent(i); // removed :number
+  const goTo = (i) => setCurrent(i); 
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden"
     >
-      {/* Gradient overlay */}
+      
       <div
         className={`absolute inset-0 bg-gradient-to-r ${slides[current].gradient} opacity-70 transition-all duration-700`}
         style={{ zIndex: 5 }}
       />
 
-      {/* Background image */}
+     
       <div
-        key={slides[current].id} // forces re-mount
+        key={slides[current].id} 
         className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
         style={{
           backgroundImage: `url(${slides[current].img})`,
@@ -76,7 +76,7 @@ const HeroSlider = () => {
         }}
       />
 
-      {/* Text content */}
+    
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center text-white">
         <h1 className="slide-content mb-3 text-3xl font-extrabold tracking-wide drop-shadow-lg md:text-5xl">
           {slides[current].title}
@@ -85,10 +85,10 @@ const HeroSlider = () => {
           {slides[current].subtitle}
         </p>
 
-        <NavLink to='all-art' className="slide-content mt-6 rounded-xl bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] px-6 py-3 font-semibold text-black shadow-xl transition-transform duration-300 hover:scale-105">Explore Now</NavLink>
+        <NavLink to='all-art' className="slide-content mt-6 rounded-xl bg-gray-200 px-6 py-3 font-semibold text-black shadow-xl transition-transform duration-300 hover:scale-105">Explore Now</NavLink>
       </div>
 
-      {/* Dots */}
+      
       <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-3">
         {slides.map((_, i) => (
           <button

@@ -71,12 +71,12 @@ export default function CommunityHighlights() {
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
-      {/* ✅ Heading */}
+      
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 text-center mb-10">
         Community Highlights
       </h1>
 
-      {/* ✅ Responsive Grid */}
+     
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {SAMPLE_DATA.map((item) => (
           <motion.article
@@ -84,7 +84,7 @@ export default function CommunityHighlights() {
             whileHover={{ scale: 1.01 }}
             className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col"
           >
-            {/* ✅ Header */}
+            
             <div className="flex items-center gap-3 p-4">
               <img
                 src={item.artist.avatar}
@@ -99,7 +99,7 @@ export default function CommunityHighlights() {
               </div>
             </div>
 
-            {/* ✅ Image */}
+            
             <div className="relative">
               <img
                 src={item.image}
@@ -109,7 +109,7 @@ export default function CommunityHighlights() {
               />
             </div>
 
-            {/* ✅ Body */}
+            
             <div className="p-4 flex flex-col flex-grow justify-between space-y-3">
               <div>
                 <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
@@ -119,7 +119,7 @@ export default function CommunityHighlights() {
                   {item.description}
                 </p>
 
-                {/* ✅ Tags */}
+             
                 <div className="flex flex-wrap gap-2 pt-2">
                   {item.tags.map((t) => (
                     <span
@@ -132,7 +132,7 @@ export default function CommunityHighlights() {
                 </div>
               </div>
 
-              {/* ✅ Like / Comment / Share */}
+              
               <div className="flex justify-around border-t border-gray-200 dark:border-gray-700 pt-3 mt-3 text-gray-600 dark:text-gray-300">
                 <button
                   onClick={() => toggleLike(item.id)}

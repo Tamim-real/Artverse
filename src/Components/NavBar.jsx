@@ -39,12 +39,12 @@ const NavBar = () => {
   return (
     <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[92%] md:w-[85%] rounded-2xl shadow-2xl z-50 backdrop-blur-xl bg-gradient-to-r from-[#0f172a]/90 via-[#1e293b]/80 to-[#0f172a]/90 border border-white/10 transition-all duration-500 hover:shadow-[0_0_25px_rgba(56,189,248,0.3)] dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <button className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] via-[#fbbf24] to-[#fcd34d] tracking-wide">
+        
+        <NavLink to='/' className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#f59e0b] via-[#fbbf24] to-[#fcd34d] tracking-wide">
           Artverse
-        </button>
+        </NavLink>
 
-        {/* Desktop Menu */}
+       
         <div className="hidden md:flex space-x-6 text-gray-300 font-medium dark:text-gray-200">
           <NavLink to="/" className="hover:text-[#38bdf8] transition-colors duration-300">Home</NavLink>
           <NavLink to="all-art" className="hover:text-[#38bdf8] transition-colors duration-300">Explore Artworks</NavLink>
@@ -53,7 +53,7 @@ const NavBar = () => {
           <NavLink to="my-favorites" className="hover:text-[#38bdf8] transition-colors duration-300">My Favorites</NavLink>
         </div>
 
-        {/* Right Side Buttons */}
+       
         <div className="hidden md:flex items-center space-x-4">
           <button
             onClick={handleToggleDarkMode}
@@ -64,7 +64,7 @@ const NavBar = () => {
 
           {user ? (
             <>
-              {/* Profile with Tooltip */}
+             
               <div className="relative">
                 <img
                   src={user.photoURL || "https://i.ibb.co/ZYW3VTp/broken-image.png"}
@@ -101,7 +101,7 @@ const NavBar = () => {
           )}
         </div>
 
-        {/* Mobile Menu Icon */}
+       
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={handleToggleDarkMode}
@@ -115,7 +115,7 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      
       {isOpen && (
         <div className="md:hidden bg-gradient-to-b from-[#0f172a]/95 to-[#1e293b]/95 backdrop-blur-xl text-gray-200 dark:text-gray-200 px-6 pb-6 space-y-4 flex flex-col text-center border-t border-white/10 rounded-b-2xl animate-slideDown">
           <NavLink to="/" className="hover:text-[#38bdf8]" onClick={toggleMenu}>Home</NavLink>
