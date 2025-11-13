@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [success, setSuccess] = useState(false);
    const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const LoginPage = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
+        navigate(from, { replace: true });
         toast.success(`Welcome back, ${user.displayName || "Artist"}! 🎨`);
       })
       .catch((error) => {

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Heart, Star, ArrowLeft } from "lucide-react";
 import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const ArtworkDetails = () => {
   const { user } = use(AuthContext);
@@ -11,6 +12,8 @@ const ArtworkDetails = () => {
   const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalArtworks, setTotalArtworks] = useState(null);
+  console.log(artwork);
+  
  
   
 
@@ -46,7 +49,7 @@ const handleLike = async (id) => {
     });
 
     if (!res.ok) {
-      const text = await res.text(); // get raw response
+      const text = await res.text(); 
       console.error("Server error:", text);
       return;
     }
@@ -61,12 +64,13 @@ const handleLike = async (id) => {
 
   const handleFavorite = async () => {
     try {
-      await fetch(`https://artverse-server.vercel.app/favorites`, {
+      await fetch(`http://localhost:3000/favorites`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(artwork),
+        body: JSON.stringify({...artwork, favorite_by: user.email}),
       });
-      alert("Added to favorites!");
+      
+      toast.success("Added to favorites!");
     } catch (err) {
       console.error(err);
     }
@@ -144,7 +148,7 @@ const handleLike = async (id) => {
       
       <motion.button
         onClick={() => navigate(-1)}
-        className="mt-10 flex items-center gap-2 bg-gradient-to-r from-[#38bdf8] to-[#3b82f6] text-white px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
+        className="mt-10 flex items-center gap-2 bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] text-blackd px-6 py-3 rounded-2xl shadow-lg hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
         whileHover={{ y: -3 }}
       >
         <ArrowLeft className="w-5 h-5" /> Go Back

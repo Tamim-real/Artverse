@@ -125,10 +125,10 @@ export default function CommunityHighlights() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight ">
             Community Highlights
           </h2>
-          <p className="mt-1 text-sm text-white">
+          <p className="mt-1 text-sm ">
             Hand-picked artworks from our community — curated for color, craft, and concept.
           </p>
         </div>

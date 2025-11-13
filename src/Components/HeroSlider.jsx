@@ -6,21 +6,21 @@ const slides = [
     id: 1,
     title: "Discover Timeless Artworks",
     subtitle: "Experience the beauty of creation and imagination.",
-    img: "https://images.unsplash.com/photo-1556139918-9b92e8b00105?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // modern gallery interior
+    img: "https://images.unsplash.com/photo-1556139918-9b92e8b00105?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
     gradient: "from-[#2d1b3d] to-[#5d2a6e]",
   },
   {
     id: 2,
     title: "Unleash Your Inner Artist",
     subtitle: "Join our creative community and showcase your masterpieces.",
-    img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80", // artist painting canvas
+    img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80", 
     gradient: "from-[#1a2a3d] to-[#0f172a]",
   },
   {
     id: 3,
     title: "Explore The World Of Colors",
     subtitle: "Dive into an inspiring collection of modern and abstract art.",
-    img: "https://images.unsplash.com/photo-1752401369012-703dcd9e763d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // abstract color explosion
+    img: "https://images.unsplash.com/photo-1752401369012-703dcd9e763d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
     gradient: "from-[#4a1a5c] to-[#8b3a8a]",
   },
 ];

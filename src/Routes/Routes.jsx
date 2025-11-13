@@ -9,6 +9,7 @@ import ExploreArtworks from "../Pages/ExploreArtworks";
 import PrivateRoute from "../Components/PrivateRoute";
 import ArtworkDetails from "../Pages/ArtworkDetails";
 import MyArtwork from "../Pages/MyArtwork";
+import MyFavorites from "../Pages/MyFavorites";
 
 const router = createBrowserRouter([
   {
@@ -21,12 +22,13 @@ const router = createBrowserRouter([
       {path: "login", element:<LoginPage></LoginPage>},
       {path:"register", element: <RegisterPage></RegisterPage>},
       {path: "add-art", element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>},
-      {path: "all-arts", element: <PrivateRoute><ExploreArtworks></ExploreArtworks></PrivateRoute>,
+      {path: "all-arts", element: <ExploreArtworks></ExploreArtworks>,
         loader: ()=> fetch('https://artverse-server.vercel.app/all-arts')
       },
       {path: '/all-arts/:id', element: <PrivateRoute><ArtworkDetails></ArtworkDetails></PrivateRoute>},
       {path: 'myart', element: <PrivateRoute><MyArtwork></MyArtwork></PrivateRoute>
-      }
+      },
+      {path: 'my-favorites', element: <PrivateRoute><MyFavorites></MyFavorites></PrivateRoute>}
     ],
   },
 ]);

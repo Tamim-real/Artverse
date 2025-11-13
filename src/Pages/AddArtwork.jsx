@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 
 const AddArtwork = () => {
   const { user } = use(AuthContext);
-  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,15 +24,11 @@ const AddArtwork = () => {
 
     fetch("https://artverse-server.vercel.app/all-arts", {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
+      headers: { "Content-type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => console.log(data))
       .catch((err) => console.log(err));
 
     e.target.reset();
@@ -41,46 +36,52 @@ const AddArtwork = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] flex justify-center items-center py-22 px-4">
+    <div className="min-h-screen flex justify-center items-center py-25 px-4 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl space-y-5 text-gray-100"
+        className="w-full max-w-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-8 shadow-2xl space-y-5 transition-colors duration-500"
       >
-        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] bg-clip-text text-transparent mb-6">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 bg-clip-text text-transparent mb-6">
           Add New Artwork
         </h2>
 
         {/* Image URL */}
         <div>
-          <label className="block mb-1 font-semibold">Image URL</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Image URL
+          </label>
           <input
             type="url"
             name="image"
             required
             placeholder="Enter artwork image URL"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           />
         </div>
 
         {/* Title */}
         <div>
-          <label className="block mb-1 font-semibold">Title</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Title
+          </label>
           <input
             type="text"
             name="title"
             required
             placeholder="Enter artwork title"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           />
         </div>
 
-        {/* Category Dropdown */}
+        {/* Category */}
         <div>
-          <label className="block mb-1 font-semibold">Category</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Category
+          </label>
           <select
             name="category"
             required
-            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           >
             <option value="">Select a category</option>
             <option value="Portrait">Portrait</option>
@@ -93,12 +94,14 @@ const AddArtwork = () => {
           </select>
         </div>
 
-        {/* Medium / Tools Dropdown */}
+        {/* Medium / Tools */}
         <div>
-          <label className="block mb-1 font-semibold">Medium / Tools</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Medium / Tools
+          </label>
           <select
             name="medium"
-            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           >
             <option value="">Select medium / tools</option>
             <option value="Oil Painting">Oil Painting</option>
@@ -113,24 +116,26 @@ const AddArtwork = () => {
         </div>
 
         {/* Description */}
-        <div>
-          <label className="block mb-1 font-semibold">Description</label>
-          <textarea
-            name="description"
-            placeholder="Write a short description about your artwork"
-            rows="4"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
-          />
-        </div>
+       <div>
+  <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+    Description
+  </label>
+  <textarea
+    name="description"
+    placeholder="Write a short description about your artwork"
+    rows="3"  // reduced from 4 to 3
+    className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
+  />
+</div>
 
-        {/* Dimensions Dropdown */}
+        {/* Dimensions */}
         <div>
-          <label className="block mb-1 font-semibold">
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
             Dimensions (optional)
           </label>
           <select
             name="dimensions"
-            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           >
             <option value="">Select dimensions</option>
             <option value="8x10 inches">8x10 inches</option>
@@ -146,21 +151,25 @@ const AddArtwork = () => {
 
         {/* Price */}
         <div>
-          <label className="block mb-1 font-semibold">Price (optional)</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Price (optional)
+          </label>
           <input
             type="number"
             name="price"
             placeholder="e.g., 1200"
-            className="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           />
         </div>
 
         {/* Visibility */}
         <div>
-          <label className="block mb-1 font-semibold">Visibility</label>
+          <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+            Visibility
+          </label>
           <select
             name="visibility"
-            className="w-full p-3 rounded-xl bg-white text-gray-800 border border-white/20 focus:ring-2 focus:ring-[#38bdf8] outline-none"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-[#38bdf8] outline-none transition-colors duration-300"
           >
             <option value="Public">Public</option>
             <option value="Private">Private</option>
@@ -170,22 +179,25 @@ const AddArtwork = () => {
         {/* User Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block mb-1 font-semibold">User Name</label>
+            <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+              User Name
+            </label>
             <input
               type="text"
               readOnly
               value={user.displayName}
-              className="w-full p-3 rounded-xl bg-white/10 border border-white/10 text-gray-400"
+              className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
             />
           </div>
           <div>
-            <label className="block mb-1 font-semibold">User Email</label>
+            <label className="block mb-1 font-semibold text-gray-900 dark:text-gray-100">
+              User Email
+            </label>
             <input
               type="email"
-              name="email"
               readOnly
               value={user.email}
-              className="w-full p-3 rounded-xl bg-white/10 border border-white/10 text-gray-400"
+              className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
             />
           </div>
         </div>
@@ -194,7 +206,7 @@ const AddArtwork = () => {
         <div className="text-center pt-4">
           <button
             type="submit"
-            className="btn btn-warning w-full md:w-auto px-8 py-3 rounded-xl text-black font-semibold hover:scale-105 transition-transform duration-300"
+            className="w-full md:w-auto px-8 py-3 rounded-xl bg-yellow-400 text-black font-semibold hover:scale-105 transition-transform duration-300"
           >
             Add Artwork
           </button>
