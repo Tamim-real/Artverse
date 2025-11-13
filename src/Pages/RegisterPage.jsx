@@ -81,7 +81,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1f1c2c] to-[#928dab] p-4">
+    <div className="min-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-md rounded-3xl shadow-2xl overflow-hidden">
         <div className="p-8 bg-gradient-to-r from-[#fbc2eb] to-[#a18cd1]">
           <h2 className="text-3xl font-bold text-black mb-6 text-center drop-shadow-lg">

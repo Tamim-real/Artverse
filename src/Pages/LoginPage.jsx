@@ -9,7 +9,7 @@ const LoginPage = () => {
   const { signIn, googleSignIn, setUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-   const location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
@@ -33,16 +33,16 @@ const LoginPage = () => {
 
   const handleGoogleLogin = () => {
     googleSignIn()
-    .then(result => {
+      .then(result => {
         setUser(result.user);
         setSuccess(true);
         navigate(location.state?.from?.pathname || "/");
       })
-      .catch(err => setError(err.message))
+      .catch(err => setError(err.message));
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1f1c2c] to-[#928dab] p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-3xl shadow-2xl overflow-hidden">
         <div className="p-8 bg-gradient-to-r from-[#fbc2eb] to-[#a18cd1]">
           <h2 className="text-3xl font-bold text-black mb-6 text-center drop-shadow-lg">
@@ -55,14 +55,14 @@ const LoginPage = () => {
               name="email"
               placeholder="Email"
               required
-              className="px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
+              className="px-4 py-3 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300"
             />
             <input
               type="password"
               name="password"
               placeholder="Password"
               required
-              className="px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300 text-gray-700"
+              className="px-4 py-3 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300"
             />
 
             <button
@@ -83,10 +83,13 @@ const LoginPage = () => {
           >
             <FcGoogle size={24} /> Login with Google
           </button>
+
           {success && (
-          <p className="text-green-600 text-center mt-2">Logged in successfully</p>
-        )}
-        {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+            <p className="text-green-600 text-center mt-2">Logged in successfully</p>
+          )}
+          {error && (
+            <p className="text-red-600 text-center mt-2">{error}</p>
+          )}
 
           <p className="mt-6 text-center text-white/90">
             Don’t have an account?{" "}
