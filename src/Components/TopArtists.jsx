@@ -34,7 +34,7 @@ const experts = [
 const TopArtists = () => {
   return (
     <section className="py-12 px-6 md:px-12 text-center">
-      <h2 className="text-3xl font-bold text-white mb-8">
+      <h2 className="text-3xl font-bold mb-8">
         Top Artists of the Week
       </h2>
 
