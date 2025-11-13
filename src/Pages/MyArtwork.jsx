@@ -2,6 +2,7 @@ import { use, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Pencil } from "lucide-react";
 import { AuthContext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const MyArtwork = () => {
   const { user } = use(AuthContext);
@@ -49,53 +50,94 @@ const MyArtwork = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!currentArtwork || !currentArtwork._id) return;
+  e.preventDefault();
+  if (!currentArtwork || !currentArtwork._id) return;
 
-    try {
-      const res = await fetch(
-        `https://artverse-server.vercel.app/all-arts/${currentArtwork._id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(currentArtwork),
-        }
-      );
-
-      if (!res.ok) throw new Error(`Server error: ${res.status}`);
-
-      const updatedArtwork = await res.json();
-      setArtworks((prev) =>
-        prev.map((art) =>
-          art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
-        )
-      );
-      handleCloseModal();
-    } catch (err) {
-      console.error("Update failed:", err);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this artwork?"
+  try {
+    const res = await fetch(
+      `https://artverse-server.vercel.app/all-arts/${currentArtwork._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(currentArtwork),
+      }
     );
-    if (!confirmDelete) return;
 
-    try {
-      const res = await fetch(
-        `https://artverse-server.vercel.app/all-arts/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+    if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
-      const data = await res.json();
+    const updatedArtwork = await res.json();
+    setArtworks((prev) =>
+      prev.map((art) =>
+        art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
+      )
+    );
+
+    handleCloseModal();
+
+    Swal.fire({
+      icon: "success",
+      title: "Updated!",
+      text: "Your artwork has been updated successfully.",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  } catch (err) {
+    console.error("Update failed:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Failed to update artwork.",
+    });
+  }
+};
+
+
+ const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to delete this artwork?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    const res = await fetch(
+      `https://artverse-server.vercel.app/all-arts/${id}`,
+      { method: "DELETE" }
+    );
+    const data = await res.json();
+
+    if (data.deletedCount > 0) {
       setArtworks((prev) => prev.filter((art) => art._id !== id));
-    } catch (err) {
-      console.error(err);
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Your artwork has been deleted.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete the artwork.",
+      });
     }
-  };
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Something went wrong!",
+    });
+  }
+};
+
 
   return (
     <div className="min-h-screen py-24 bg-gray-100 dark:bg-gray-900">

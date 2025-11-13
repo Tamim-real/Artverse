@@ -3,6 +3,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { Eye, HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 const MyFavorites = () => {
   const { user } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const MyFavorites = () => {
     const fetchArtworks = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/my-favorites?email=${encodeURIComponent(
+          `https://artverse-server.vercel.app/my-favorites?email=${encodeURIComponent(
             user.email
           )}`
         );
@@ -36,28 +37,52 @@ const MyFavorites = () => {
   
 
   const handleUnfavorite = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this artwork?"
-    );
-    if (!confirmDelete) return;
+  // SweetAlert2 confirmation
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to remove this artwork from your favorites?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, remove it!",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  });
 
-    try {
-      const res = await fetch(`http://localhost:3000/my-favorites/${id}`, {
-        method: "DELETE",
+  if (!result.isConfirmed) return; 
+
+  try {
+    const res = await fetch(`https://artverse-server.vercel.app/my-favorites/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+
+    if (data.deletedCount > 0) {
+      setArtworks((prev) => prev.filter((art) => art._id !== id));
+      Swal.fire({
+        icon: "success",
+        title: "Removed!",
+        text: "Artwork has been removed from your favorites.",
+        timer: 2000,
+        showConfirmButton: false,
       });
-
-      const data = await res.json();
-      console.log(data);
-
-      if (data.deletedCount > 0) {
-        setArtworks((prev) => prev.filter((art) => art._id !== id));
-      } else {
-        alert("Failed to remove from favorites.");
-      }
-    } catch (err) {
-      console.error("Delete failed:", err);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Failed to remove the artwork.",
+      });
     }
-  };
+  } catch (err) {
+    console.error("Delete failed:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Something went wrong while removing the artwork.",
+    });
+  }
+};
+
 
   if (loading) {
     return (
@@ -66,6 +91,9 @@ const MyFavorites = () => {
       </div>
     );
   }
+  artworks.forEach((art) => {
+  console.log("ID:", art._id, "Type:", typeof art._id);
+});
 
   return (
     <div className="min-h-screen py-24 px-6">
@@ -128,7 +156,7 @@ const MyFavorites = () => {
         ))}
       </div>
 
-      {/* Modal for details */}
+      
       {showDetails && selectedArt && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
