@@ -85,7 +85,7 @@ const HeroSlider = () => {
           {slides[current].subtitle}
         </p>
 
-        <NavLink to='all-arts' className="slide-content mt-6 rounded-xl bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] px-6 py-3 font-semibold text-black shadow-xl transition-transform duration-300 hover:scale-105">Explore Now</NavLink>
+        <NavLink to='all-art' className="slide-content mt-6 rounded-xl bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] px-6 py-3 font-semibold text-black shadow-xl transition-transform duration-300 hover:scale-105">Explore Now</NavLink>
       </div>
 
       {/* Dots */}

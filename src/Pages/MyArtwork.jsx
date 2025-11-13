@@ -31,8 +31,32 @@ const MyArtwork = () => {
     fetchArtworks();
   }, [user?.email]);
 
+  // ✅ Loading Spinner
   if (loading)
-    return <div className="text-gray-900 dark:text-gray-100 text-center mt-20">Loading...</div>;
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
+        <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+
+  // ✅ No Artwork Found UI
+  if (artworks.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-gray-100 dark:bg-gray-900">
+        <img
+          src="https://illustrations.popsy.co/gray/hard-drive.svg"
+          alt="No artworks"
+          className="w-48 h-48 mb-6 opacity-80"
+        />
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          You haven’t added any artworks yet 🎨
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 max-w-md">
+          Upload your beautiful creations and showcase them to the world.
+        </p>
+      </div>
+    );
+  }
 
   const handleOpenModal = (artwork) => {
     setCurrentArtwork(artwork);
@@ -50,94 +74,92 @@ const MyArtwork = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!currentArtwork || !currentArtwork._id) return;
+    e.preventDefault();
+    if (!currentArtwork || !currentArtwork._id) return;
 
-  try {
-    const res = await fetch(
-      `https://artverse-server.vercel.app/all-arts/${currentArtwork._id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(currentArtwork),
-      }
-    );
+    try {
+      const res = await fetch(
+        `https://artverse-server.vercel.app/all-arts/${currentArtwork._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(currentArtwork),
+        }
+      );
 
-    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+      if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
-    const updatedArtwork = await res.json();
-    setArtworks((prev) =>
-      prev.map((art) =>
-        art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
-      )
-    );
+      const updatedArtwork = await res.json();
+      setArtworks((prev) =>
+        prev.map((art) =>
+          art._id === updatedArtwork._id ? { ...art, ...updatedArtwork } : art
+        )
+      );
 
-    handleCloseModal();
+      handleCloseModal();
 
-    Swal.fire({
-      icon: "success",
-      title: "Updated!",
-      text: "Your artwork has been updated successfully.",
-      timer: 2000,
-      showConfirmButton: false,
-    });
-  } catch (err) {
-    console.error("Update failed:", err);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Failed to update artwork.",
-    });
-  }
-};
-
-
- const handleDelete = async (id) => {
-  const result = await Swal.fire({
-    title: "Are you sure?",
-    text: "Do you want to delete this artwork?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "Cancel",
-    reverseButtons: true,
-  });
-
-  if (!result.isConfirmed) return;
-
-  try {
-    const res = await fetch(
-      `https://artverse-server.vercel.app/all-arts/${id}`,
-      { method: "DELETE" }
-    );
-    const data = await res.json();
-
-    if (data.deletedCount > 0) {
-      setArtworks((prev) => prev.filter((art) => art._id !== id));
       Swal.fire({
         icon: "success",
-        title: "Deleted!",
-        text: "Your artwork has been deleted.",
+        title: "Updated!",
+        text: "Your artwork has been updated successfully.",
         timer: 2000,
         showConfirmButton: false,
       });
-    } else {
+    } catch (err) {
+      console.error("Update failed:", err);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Failed to delete the artwork.",
+        text: "Failed to update artwork.",
       });
     }
-  } catch (err) {
-    console.error(err);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Something went wrong!",
-    });
-  }
-};
+  };
 
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this artwork?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const res = await fetch(
+        `https://artverse-server.vercel.app/all-arts/${id}`,
+        { method: "DELETE" }
+      );
+      const data = await res.json();
+
+      if (data.deletedCount > 0) {
+        setArtworks((prev) => prev.filter((art) => art._id !== id));
+        Swal.fire({
+          icon: "success",
+          title: "Deleted!",
+          text: "Your artwork has been deleted.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to delete the artwork.",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong!",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen py-24 bg-gray-100 dark:bg-gray-900">
@@ -148,14 +170,14 @@ const MyArtwork = () => {
               key={artwork._id}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 200 }}
-              className="relative bg-white dark:bg-gray-800 backdrop-blur-xl border border-gray-300 dark:border-gray-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 w-full max-w-xs mx-auto"
+              className="relative bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 w-full"
             >
               {/* Artwork Image */}
               <div className="relative overflow-hidden h-52 sm:h-56 md:h-60">
                 <img
                   src={artwork.image}
                   alt={artwork.title}
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                 />
               </div>
 
@@ -171,12 +193,10 @@ const MyArtwork = () => {
 
                 <div className="text-sm space-y-1 mt-2">
                   <p>
-                    <span className="font-semibold">Category:</span>{" "}
-                    {artwork.category || "N/A"}
+                    <span className="font-semibold">Category:</span> {artwork.category || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold">Dimensions:</span>{" "}
-                    {artwork.dimensions || "N/A"}
+                    <span className="font-semibold">Dimensions:</span> {artwork.dimensions || "N/A"}
                   </p>
                   <p>
                     <span className="font-semibold">Price:</span>{" "}
@@ -231,7 +251,7 @@ const MyArtwork = () => {
                 value={currentArtwork.image}
                 onChange={handleChange}
                 placeholder="Image URL"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <input
                 type="text"
@@ -239,7 +259,7 @@ const MyArtwork = () => {
                 value={currentArtwork.title}
                 onChange={handleChange}
                 placeholder="Title"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <input
                 type="text"
@@ -247,7 +267,7 @@ const MyArtwork = () => {
                 value={currentArtwork.category}
                 onChange={handleChange}
                 placeholder="Category"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <input
                 type="text"
@@ -255,7 +275,7 @@ const MyArtwork = () => {
                 value={currentArtwork.medium}
                 onChange={handleChange}
                 placeholder="Medium / Tools"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <textarea
                 name="description"
@@ -263,7 +283,7 @@ const MyArtwork = () => {
                 onChange={handleChange}
                 placeholder="Description"
                 rows={3}
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <input
                 type="text"
@@ -271,7 +291,7 @@ const MyArtwork = () => {
                 value={currentArtwork.dimensions}
                 onChange={handleChange}
                 placeholder="Dimensions"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <input
                 type="number"
@@ -279,13 +299,13 @@ const MyArtwork = () => {
                 value={currentArtwork.price}
                 onChange={handleChange}
                 placeholder="Price"
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               />
               <select
                 name="visibility"
                 value={currentArtwork.visibility}
                 onChange={handleChange}
-                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                className="w-full p-2 bg-gray-100 dark:bg-gray-700 border rounded-lg"
               >
                 <option value="Public">Public</option>
                 <option value="Private">Private</option>
@@ -295,7 +315,7 @@ const MyArtwork = () => {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-4 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 rounded-lg text-gray-900 dark:text-gray-100"
+                  className="px-4 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 rounded-lg"
                 >
                   Cancel
                 </button>

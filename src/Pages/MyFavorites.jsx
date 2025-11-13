@@ -33,76 +33,96 @@ const MyFavorites = () => {
 
     fetchArtworks();
   }, [user?.email]);
-  console.log(artworks);
-  
 
   const handleUnfavorite = async (id) => {
-  // SweetAlert2 confirmation
-  const result = await Swal.fire({
-    title: "Are you sure?",
-    text: "Do you want to remove this artwork from your favorites?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Yes, remove it!",
-    cancelButtonText: "Cancel",
-    reverseButtons: true,
-  });
-
-  if (!result.isConfirmed) return; 
-
-  try {
-    const res = await fetch(`https://artverse-server.vercel.app/my-favorites/${id}`, {
-      method: "DELETE",
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to remove this artwork from your favorites?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, remove it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
     });
 
-    const data = await res.json();
+    if (!result.isConfirmed) return;
 
-    if (data.deletedCount > 0) {
-      setArtworks((prev) => prev.filter((art) => art._id !== id));
-      Swal.fire({
-        icon: "success",
-        title: "Removed!",
-        text: "Artwork has been removed from your favorites.",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-    } else {
+    try {
+      const res = await fetch(
+        `https://artverse-server.vercel.app/my-favorites/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.deletedCount > 0) {
+        setArtworks((prev) => prev.filter((art) => art._id !== id));
+        Swal.fire({
+          icon: "success",
+          title: "Removed!",
+          text: "Artwork has been removed from your favorites.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Failed to remove the artwork.",
+        });
+      }
+    } catch (err) {
+      console.error("Delete failed:", err);
       Swal.fire({
         icon: "error",
-        title: "Oops!",
-        text: "Failed to remove the artwork.",
+        title: "Error",
+        text: "Something went wrong while removing the artwork.",
       });
     }
-  } catch (err) {
-    console.error("Delete failed:", err);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Something went wrong while removing the artwork.",
-    });
-  }
-};
-
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center text-white">
+      <div className="min-h-screen flex justify-center items-center text-white text-lg">
         Loading your favorites...
       </div>
     );
   }
-  artworks.forEach((art) => {
-  console.log("ID:", art._id, "Type:", typeof art._id);
-});
+
+  
+  if (artworks.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center text-center px-4">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/4076/4076505.png"
+          alt="No favorites"
+          className="w-32 h-32 mb-4 opacity-80"
+        />
+        <h2 className="text-white text-2xl font-semibold">
+          You have not added any arts to favorites yet.
+        </h2>
+        <p className="text-slate-400 mt-2 text-sm">
+          Explore artworks and add your favorites to see them here.
+        </p>
+        <Link
+          to="/all-arts"
+          className="mt-6 px-5 py-2 rounded-lg bg-gradient-to-r from-[#C1A57B] to-[#f9d29d] px-6 text-white transition"
+        >
+          Browse Artworks
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen py-24 px-6">
-      <div className="w-11/12 md:w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="w-11/12 md:w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {artworks.map((art) => (
           <article
             key={art._id}
-            className="group relative w-full max-w-sm rounded-2xl overflow-hidden shadow-lg bg-white ring-1 ring-slate-100"
-            aria-label={`Artwork card: ${art.title}`}
+            className="group relative w-full rounded-2xl overflow-hidden shadow-lg bg-white ring-1 ring-slate-100"
           >
             <div className="relative h-52 sm:h-64 md:h-72 overflow-hidden bg-slate-50">
               <img
@@ -120,7 +140,7 @@ const MyFavorites = () => {
             <div className="p-4 sm:p-5">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-sm sm:text-base font-semibold leading-tight text-slate-900 truncate">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">
                     {art.title}
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm text-slate-600 truncate">
@@ -143,8 +163,7 @@ const MyFavorites = () => {
                 </Link>
 
                 <button
-                  onClick={() => handleUnfavorite(art._id)} 
-                  
+                  onClick={() => handleUnfavorite(art._id)}
                   className="inline-flex items-center gap-2 px-3 py-2 rounded-lg shadow-sm text-sm font-medium bg-red-50 text-red-700 hover:bg-red-100 transition-transform transform hover:-translate-y-0.5"
                 >
                   <HeartOff className="h-4 w-4" />
@@ -156,7 +175,6 @@ const MyFavorites = () => {
         ))}
       </div>
 
-      
       {showDetails && selectedArt && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -209,8 +227,6 @@ const MyFavorites = () => {
           </motion.dialog>
         </motion.div>
       )}
-      
-      
     </div>
   );
 };

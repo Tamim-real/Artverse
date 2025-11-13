@@ -47,7 +47,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 text-gray-300 font-medium dark:text-gray-200">
           <NavLink to="/" className="hover:text-[#38bdf8] transition-colors duration-300">Home</NavLink>
-          <NavLink to="all-arts" className="hover:text-[#38bdf8] transition-colors duration-300">Explore Artworks</NavLink>
+          <NavLink to="all-art" className="hover:text-[#38bdf8] transition-colors duration-300">Explore Artworks</NavLink>
           <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">Add Artwork</NavLink>
           <NavLink to="myart" className="hover:text-[#38bdf8] transition-colors duration-300">My Gallery</NavLink>
           <NavLink to="my-favorites" className="hover:text-[#38bdf8] transition-colors duration-300">My Favorites</NavLink>
@@ -121,7 +121,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-gradient-to-b from-[#0f172a]/95 to-[#1e293b]/95 backdrop-blur-xl text-gray-200 dark:text-gray-200 px-6 pb-6 space-y-4 flex flex-col text-center border-t border-white/10 rounded-b-2xl animate-slideDown">
           <NavLink to="/" className="hover:text-[#38bdf8]" onClick={toggleMenu}>Home</NavLink>
-          <NavLink to="all-arts" className="hover:text-[#38bdf8]" onClick={toggleMenu}>Explore Artworks</NavLink>
+          <NavLink to="all-art" className="hover:text-[#38bdf8]" onClick={toggleMenu}>Explore Artworks</NavLink>
           <NavLink to="add-art" className="hover:text-[#38bdf8]" onClick={toggleMenu}>Add Artwork</NavLink>
           <NavLink to="myart" className="hover:text-[#38bdf8]" onClick={toggleMenu}>My Gallery</NavLink>
           <NavLink to="my-favorites" className="hover:text-[#38bdf8]" onClick={toggleMenu}>My Favorites</NavLink>

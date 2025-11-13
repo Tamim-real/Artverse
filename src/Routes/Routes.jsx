@@ -15,20 +15,56 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <ErrorPage></ErrorPage>,
-   
+    errorElement: <ErrorPage />, 
+
     children: [
-      { path: "/", element: <Home />,loader: ()=>fetch('https://artverse-server.vercel.app/latest-arts') },
-      {path: "login", element:<LoginPage></LoginPage>},
-      {path:"register", element: <RegisterPage></RegisterPage>},
-      {path: "add-art", element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>},
-      {path: "all-arts", element: <ExploreArtworks></ExploreArtworks>,
-        loader: ()=> fetch('https://artverse-server.vercel.app/all-arts')
+      {
+        path: "/",
+        element: <Home />,
+        loader: () => fetch("https://artverse-server.vercel.app/latest-arts"),
       },
-      {path: '/all-arts/:id', element: <PrivateRoute><ArtworkDetails></ArtworkDetails></PrivateRoute>},
-      {path: 'myart', element: <PrivateRoute><MyArtwork></MyArtwork></PrivateRoute>
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
+      {
+        path: "add-art",
+        element: (
+          <PrivateRoute>
+            <AddArtwork />
+          </PrivateRoute>
+        ),
       },
-      {path: 'my-favorites', element: <PrivateRoute><MyFavorites></MyFavorites></PrivateRoute>}
+      {
+        path: "all-art",
+        element: <ExploreArtworks />,
+        loader: () => fetch("https://artverse-server.vercel.app/all-arts"),
+      },
+      {
+        path: "all-arts/:id",
+        element: (
+          <PrivateRoute>
+            <ArtworkDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myart",
+        element: (
+          <PrivateRoute>
+            <MyArtwork />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-favorites",
+        element: (
+          <PrivateRoute>
+            <MyFavorites />
+          </PrivateRoute>
+        ),
+      },
+
+      
+      // { path: "*", element: <ErrorPage /> },
     ],
   },
 ]);
