@@ -5,13 +5,15 @@ import LatestArtCard from '../Components/LatestArtCard';
 import TopArtists from '../Components/TopArtists';
 import CommunityHighlights from '../Components/CommunityHighlights';
 import { Fade } from "react-awesome-reveal"; 
+import SparkLightAnimation from '../Components/SparkLightAnimation';
 
 const Home = () => {
     const data = useLoaderData();
 
     return (
         <div>
-            <HeroSlider />
+            {/* <HeroSlider /> */}
+            <SparkLightAnimation />
 
             <section className='py-5'>
                 <h1 className='text-3xl text-center font-bold py-3'>Featured Artworks</h1>

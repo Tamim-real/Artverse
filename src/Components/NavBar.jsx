@@ -51,6 +51,7 @@ const NavBar = () => {
           <NavLink to="add-art" className="hover:text-[#38bdf8] transition-colors duration-300">Add Artwork</NavLink>
           <NavLink to="myart" className="hover:text-[#38bdf8] transition-colors duration-300">My Gallery</NavLink>
           <NavLink to="my-favorites" className="hover:text-[#38bdf8] transition-colors duration-300">My Favorites</NavLink>
+          <NavLink to="dashboard" className="hover:text-[#38bdf8] transition-colors duration-300">Dashboard</NavLink>
         </div>
 
        

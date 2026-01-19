@@ -10,6 +10,8 @@ import PrivateRoute from "../Components/PrivateRoute";
 import ArtworkDetails from "../Pages/ArtworkDetails";
 import MyArtwork from "../Pages/MyArtwork";
 import MyFavorites from "../Pages/MyFavorites";
+import Dashboard from "../Pages/Dashboard";
+import MyProfile from "../Pages/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -41,9 +43,9 @@ const router = createBrowserRouter([
       {
         path: "all-arts/:id",
         element: (
-          <PrivateRoute>
+          
             <ArtworkDetails />
-          </PrivateRoute>
+          
         ),
       },
       {
@@ -62,11 +64,21 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: 'my-profile',
+        element: <MyProfile></MyProfile>
+      }
 
       
       // { path: "*", element: <ErrorPage /> },
     ],
+    
   },
+  {
+    path: 'dashboard',
+    element: <Dashboard></Dashboard>,
+    
+  }
 ]);
 
 export default router;

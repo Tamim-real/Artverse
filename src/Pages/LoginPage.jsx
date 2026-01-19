@@ -42,64 +42,83 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-3xl shadow-2xl overflow-hidden">
-        <div className="p-8 bg-gradient-to-r from-[#fbc2eb] to-[#a18cd1]">
-          <h2 className="text-3xl font-bold text-black mb-6 text-center drop-shadow-lg">
-            Welcome Back
-          </h2>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f9fa] dark:bg-gray-900">
+      {/* Background Decorative Circles */}
+      <div className="fixed top-20 left-20 w-64 h-64 bg-[#fbc2eb] rounded-full blur-[100px] opacity-50 animate-pulse"></div>
+      <div className="fixed bottom-20 right-20 w-80 h-80 bg-[#a18cd1] rounded-full blur-[100px] opacity-50 animate-pulse"></div>
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-4">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              className="px-4 py-3 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300"
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              className="px-4 py-3 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f6d365] transition duration-300"
-            />
+      <div className="w-full max-w-md relative z-10">
+        <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/80 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/20 overflow-hidden">
+          
+          <div className="p-8">
+            <div className="text-center mb-8">
+  {/* Clean & Professional Branding */}
+  <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center justify-center gap-2">
+    <span className="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-2 py-1 rounded-lg text-2xl">A</span>
+    Artverse
+  </h2>
+  <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">Please enter your details</p>
+</div>
+
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div className="group">
+                <label className="text-xs font-bold uppercase text-gray-400 ml-1 mb-1 block">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue="admin@admin.com"
+                  placeholder="name@example.com"
+                  required
+                  className="w-full px-5 py-3.5 rounded-2xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-[#a18cd1] focus:ring-4 focus:ring-[#a18cd1]/20 outline-none transition-all duration-300 shadow-sm"
+                />
+              </div>
+
+              <div className="group">
+                <label className="text-xs font-bold uppercase text-gray-400 ml-1 mb-1 block">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  defaultValue="123456"
+                  placeholder="••••••••"
+                  required
+                  className="w-full px-5 py-3.5 rounded-2xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-[#a18cd1] focus:ring-4 focus:ring-[#a18cd1]/20 outline-none transition-all duration-300 shadow-sm"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-4 bg-gray-900 dark:bg-white dark:text-gray-900 text-white font-bold rounded-2xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-300 transform active:scale-95 shadow-lg"
+              >
+                Sign In
+              </button>
+            </form>
+
+            <div className="relative flex items-center justify-center my-8">
+              <div className="w-full border-t border-gray-200 dark:border-gray-600"></div>
+              <span className="absolute px-4 bg-transparent text-gray-400 text-sm">OR</span>
+            </div>
 
             <button
-              type="submit"
-              className="mt-4 bg-gradient-to-r from-[#f6d365] to-[#fda085] text-black font-bold py-3 rounded-xl hover:scale-105 transition-transform duration-300 shadow-md"
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl py-3.5 font-semibold text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 shadow-sm border-b-4 active:border-b-0 active:translate-y-1"
             >
-              Log In
+              <FcGoogle size={24} /> Sign in with Google
             </button>
-          </form>
 
-          <div className="flex items-center justify-center gap-4 my-4">
-            <span className="text-white/80">or</span>
+            {error && (
+              <p className="text-red-500 text-center text-sm mt-4 font-medium animate-bounce">{error}</p>
+            )}
+
+            <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">
+              New here?{" "}
+              <Link
+                to="/register"
+                className="font-bold text-gray-900 dark:text-white hover:text-[#a18cd1] underline decoration-2 underline-offset-4 transition-colors"
+              >
+                Create an account
+              </Link>
+            </p>
           </div>
-
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-2 border-2 border-white/70 rounded-xl py-3 text-white font-semibold hover:bg-white hover:text-gray-900 transition duration-300"
-          >
-            <FcGoogle size={24} /> Login with Google
-          </button>
-
-          {success && (
-            <p className="text-green-600 text-center mt-2">Logged in successfully</p>
-          )}
-          {error && (
-            <p className="text-red-600 text-center mt-2">{error}</p>
-          )}
-
-          <p className="mt-6 text-center text-white/90">
-            Don’t have an account?{" "}
-            <Link
-              to="/register"
-              className="font-bold text-white underline hover:text-[#f6d365] transition duration-300"
-            >
-              Register
-            </Link>
-          </p>
         </div>
       </div>
     </div>
